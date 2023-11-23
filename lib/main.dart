@@ -1,6 +1,7 @@
 import 'package:chatgpt_role_play/App/Constant/Theme/theme.dart';
 import 'package:chatgpt_role_play/App/Provider/home_provider.dart';
-import 'package:chatgpt_role_play/App/Screens/Home/home_screen.dart';
+import 'package:chatgpt_role_play/WidgetsAndBindings/app_pages.dart';
+import 'package:chatgpt_role_play/WidgetsAndBindings/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: appTheme[ThemeType.lightTheme],
-        home: const HomeScreen(),
+       initialRoute: AppRoutes.homeScreen,
+       onGenerateRoute: AppPages.generateRoute,
       ),
     );
   }

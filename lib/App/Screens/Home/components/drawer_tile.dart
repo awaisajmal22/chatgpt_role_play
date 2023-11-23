@@ -7,20 +7,35 @@ drawerTile({
   required BuildContext context,
   required Color titleColor,
   required String icon,
+  required Color indicatorColor,
   required VoidCallback onTap,
 }){
-  final size = MediaQuery.of(context).size;
+  
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical:16,),
+      padding: const EdgeInsets.only(top: 16,bottom: 16, right: 10,),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(3)
     
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Container(
+            width: 6,
+            height: 40,
+            decoration: BoxDecoration(
+              color: indicatorColor,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(8),
+                bottomRight: Radius.circular(8)
+              )
+            ),
+          ),
+       const   SizedBox(
+            width: 34,
+          ),
           SvgPicture.asset(icon, height: 24, width: 24,color: titleColor,),
          const SizedBox(
             width: 12,

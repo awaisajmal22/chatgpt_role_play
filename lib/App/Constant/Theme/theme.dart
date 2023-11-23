@@ -14,29 +14,29 @@ final appTheme = {
     canvasColor: Color(0xffC8E6F3),
     primaryColor: Color(0xff2C3333),
     textTheme: TextTheme(
-    titleSmall: GoogleFonts.roboto(
+    titleSmall: GoogleFonts.poppins(
       color: Color(0xff000000),
       fontSize: 16,
       fontWeight: FontWeight.w400,
       
     ),
-    titleLarge: GoogleFonts.roboto(
+    titleLarge: GoogleFonts.poppins(
       color: Color(0xff000000),
       fontSize: 40,
       fontWeight: FontWeight.w700,
 
     ),
-    labelMedium: GoogleFonts.roboto(
+    labelMedium: GoogleFonts.poppins(
       color: Color(0xff2C3333).withOpacity(0.70),
       fontSize: 16,
       fontWeight: FontWeight.w400
     ),
-    labelSmall: GoogleFonts.roboto(
+    labelSmall: GoogleFonts.poppins(
       color: Color(0xff2C3333),
       fontSize: 8,
       fontWeight: FontWeight.w600,
     ),
-     bodyMedium: GoogleFonts.roboto(
+     bodyMedium: GoogleFonts.poppins(
       color: Color(0xffFFFFFF),
       fontSize: 18, fontWeight: FontWeight.w600,
      )
@@ -50,31 +50,31 @@ final appTheme = {
     primaryColor: Color(0xff1279FC),
     hoverColor: Color(0xffF1F9FF),
     textTheme: TextTheme(
-    titleSmall: GoogleFonts.roboto(
+    titleSmall: GoogleFonts.poppins(
       color: Color(0xff000000),
       fontSize: 16,
       fontWeight: FontWeight.w400,
       
     ),
-    titleLarge: GoogleFonts.roboto(
+    titleLarge: GoogleFonts.poppins(
       color: Color(0xff000000),
       fontSize: 40,
       fontWeight: FontWeight.w700,
 
     ),
-    labelMedium: GoogleFonts.roboto(
+    labelMedium: GoogleFonts.poppins(
       color: Color(0xff2C3333).withOpacity(0.70),
       fontSize: 16,
       fontWeight: FontWeight.w400
     ),
-    labelSmall: GoogleFonts.roboto(
+    labelSmall: GoogleFonts.poppins(
       color: Color(0xff2C3333),
       fontSize: 8,
       fontWeight: FontWeight.w600,
     ),
-     bodyMedium: GoogleFonts.roboto(
-      color: Color(0xffFFFFFF),
-      fontSize: 18, fontWeight: FontWeight.w600,
+     bodyMedium: GoogleFonts.poppins(
+      color: Color(0xff1F384C),
+      fontSize: 18, fontWeight: FontWeight.w500,
      )
     )
   )

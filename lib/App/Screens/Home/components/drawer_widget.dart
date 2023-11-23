@@ -16,36 +16,71 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: size.width * 0.12,
-      height: size.height * 0.7895,
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white
+      ),
+      width: 273,
+      // height: size.height  * 0.915,
       child: Column(
         children: [
+          Container(
+            padding: const EdgeInsets.only(
+              left: 35, right: 22.45, top: 24, bottom: 36,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 52, width: 52,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(image: NetworkImage('https://media.istockphoto.com/id/1297349747/photo/hot-air-balloons-flying-over-the-botan-canyon-in-turkey.jpg?s=612x612&w=0&k=20&c=kt8-RRzCDunpxgKFMBBjZ6jSteetNhhSxHZFvHQ0hNU=', ), fit: BoxFit.cover,)
+                  ),
+                ),
+           const     SizedBox(
+                  width: 12,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FittedBox(
+                      child: Text('Gavano', style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w700
+                      ),),
+                    ),
+                    FittedBox(
+                      child: Text('Gavano', style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13,
+                      ),),
+                    ),
+                    
+                  ],
+                ),
+             const   Spacer(),
+GestureDetector(
+  onTap: (){},
+  child: SvgPicture.asset('assets/icons/more.svg'))
+              ],
+            ),
+          ),
           Expanded(child: 
           ListView.builder(
             itemCount: homeProvider.drawerList.length,
             itemBuilder: (context, index){
             return drawerTile(
+              indicatorColor: homeProvider.selectedIndex == index ?Theme.of(context).primaryColor : Colors.transparent,
               onTap: (){
                 homeProvider.getSelectedIndex(index: index);
               },
-              color: homeProvider.selectedIndex == index ? Color(0xffF1F9FF) : Color(0xffFFFFFF), title: homeProvider.drawerList[index].title, context: context, titleColor: homeProvider.selectedIndex==index ? Color(0xff1279FC) : Color(0xff2c3333).withOpacity(0.70), icon: homeProvider.drawerList[index].icon);
+              color: homeProvider.selectedIndex == index ? Color(0xffF8F8F8) : Color(0xffFFFFFF), title: homeProvider.drawerList[index].title, context: context, titleColor: homeProvider.selectedIndex==index ? Color(0xff1279FC) : Color(0xff2c3333).withOpacity(0.70), icon: homeProvider.drawerList[index].icon);
           })),
-          
-    Container(
-    height: size.height * 0.06,
-    width: size.width * 0.052,
-                decoration: const BoxDecoration(
-    shape: BoxShape.circle,
-    image: DecorationImage(image: 
-                 NetworkImage("https://images.unsplash.com/photo-1532012197267-da84d127e765?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D"),
-                fit: BoxFit.cover ),
-                ),
-               ),
-             const  SizedBox(
-                height: 17,
-               ),
-               SvgPicture.asset('assets/icons/about.svg', height: 24, width: 24,),
+     
              
         ],
       ),
