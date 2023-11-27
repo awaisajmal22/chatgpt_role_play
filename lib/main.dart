@@ -1,5 +1,6 @@
 import 'package:chatgpt_role_play/App/Constant/Theme/theme.dart';
 import 'package:chatgpt_role_play/App/Provider/home_provider.dart';
+import 'package:chatgpt_role_play/App/Provider/role_play_convo_provider.dart';
 import 'package:chatgpt_role_play/WidgetsAndBindings/app_pages.dart';
 import 'package:chatgpt_role_play/WidgetsAndBindings/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_)=> HomeProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_)=> HomeProvider()),
+        ChangeNotifierProvider(create: (_)=> RolePlayConvoProvider()),
+        
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: appTheme[ThemeType.lightTheme],

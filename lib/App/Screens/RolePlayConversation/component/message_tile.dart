@@ -4,8 +4,10 @@ import 'package:flutter/widgets.dart';
 
 class MessageTile extends StatelessWidget {
   final bool isUSerSide;
+  final String title;
   const MessageTile({
     required this.isUSerSide,
+    required this.title,
     super.key,
   });
 
@@ -36,7 +38,7 @@ class MessageTile extends StatelessWidget {
         const SizedBox(
           width: 22,
         ),
-        Text('Hi how Are you?', style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+        Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
           color: Color(0xff0F0F0F),
           fontSize: 18,
           fontWeight: FontWeight.w400,
@@ -56,7 +58,7 @@ class MessageTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         
-        Text('Hi how Are you?', style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+        Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
           color: Color(0xff0F0F0F),
           fontSize: 18,
           fontWeight: FontWeight.w400,
