@@ -8,6 +8,7 @@ String promptModelToJson(PromptModel data) => json.encode(data.toJson());
 class PromptModel {
     String role;
     String content;
+    
 
     PromptModel({
         required this.role,

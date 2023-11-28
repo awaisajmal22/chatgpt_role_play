@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chatgpt_role_play/App/Models/chatgpt_prompt_model.dart';
 import 'package:http/http.dart' as http;
 
 class OpenAIService {
   final List<PromptModel> messages = [];
 
-  String openAiSecretKey = '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';
+
+  String openAiSecretKey = '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';
   Future<String> chatGPTAPI(String prompt) async {
     messages.add(PromptModel(role: 'user', content: prompt));
     print(messages.length);
