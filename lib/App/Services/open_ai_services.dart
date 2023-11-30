@@ -38,6 +38,7 @@ class OpenAIService  {
       }
       return [];
     } catch (e) {
+      print(e);
       return [];
     }
   }

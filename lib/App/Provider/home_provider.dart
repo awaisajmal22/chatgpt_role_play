@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../Services/open_ai_services.dart';
 
 class HomeProvider extends ChangeNotifier{
-  final OpenAIService openAIService = OpenAIService();
   List<DrawerModel> drawerList = <DrawerModel>[
 DrawerModel(icon: "assets/icons/dashboard.svg", title: 'Dashboard'),
 DrawerModel(icon: 'assets/icons/user.svg', title: 'Role Play'),
