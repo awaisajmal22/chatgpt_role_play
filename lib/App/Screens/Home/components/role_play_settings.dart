@@ -1,10 +1,13 @@
 
+import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chatgpt_role_play/App/Constant/appButton/app_button.dart';
 import 'package:chatgpt_role_play/App/Provider/home_provider.dart';
+import 'package:chatgpt_role_play/App/Provider/role_play_convo_provider.dart';
 import 'package:chatgpt_role_play/App/Screens/Home/components/drop_down.dart';
 import 'package:chatgpt_role_play/WidgetsAndBindings/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class RolePlaySettings extends StatelessWidget {
   final HomeProvider homeProvider;
@@ -59,11 +62,19 @@ class RolePlaySettings extends StatelessWidget {
               const SizedBox(
                 height: 21,
               ),
-              AppDropdownInput(value: '', onChanged: (value){}),
+              AppDropdownInput(
+                options: homeProvider.bussinessList,
+                value: homeProvider.business, onChanged: (value){
+                  homeProvider.getBusiness(value);
+                }),
              const SizedBox(
               height: 18,
              ),
-             AppDropdownInput(value: '', onChanged: (value){}),
+             AppDropdownInput(
+              options: homeProvider.companyPositionList,
+              value: homeProvider.companyPosition, onChanged: (value){
+                homeProvider.getCompanyPosition(value);
+              }),
              const SizedBox(
               height: 24,
              ),
@@ -136,6 +147,7 @@ class RolePlaySettings extends StatelessWidget {
                   min: 1,
                   value: homeProvider.sliderValue, onChanged: (value){
                     homeProvider.getChangeSliderValue(value: value);
+                    print(homeProvider.sliderValue.round());
                   }),
               ),
             ),
@@ -162,8 +174,11 @@ class RolePlaySettings extends StatelessWidget {
          const SizedBox(
             height: 27,
           ),
-      Center(child:    appButton(horizontalPadding: 20, verticalPadding: 6, color: Theme.of(context).primaryColor, title: 'Start Role Play', radius: 5, context: context, titleColor: Theme.of(context).scaffoldBackgroundColor, fontSize: 12, fontWeight: FontWeight.w500, onTap: (){
+      Center(child:    appButton(horizontalPadding: 20, verticalPadding: 6, color: Theme.of(context).primaryColor, title: 'Start Role Play', radius: 5, context: context, titleColor: Theme.of(context).scaffoldBackgroundColor, fontSize: 12, fontWeight: FontWeight.w500, onTap: ()async{
+       
+
         Navigator.pushNamed(context, AppRoutes.roleplayconvoScreen);
+         Provider.of<RolePlayConvoProvider>(context, listen:  false).sendMessage('You are a busy ${homeProvider.companyPosition} of a ${homeProvider.business} business answering the phone. You are not easily persuaded and are very skeptical and cautious when making decisions. New things do not really interest you unless you are really convinced about it. You are involved in a simulated cold call sales interaction where you play the role of a potential customer. Do not generate text, wait until someone is writing to you and have a conversation as a busy business owner would. Answer only with \"hi who is this?\" when someone first writes to you. You are not easily persuaded and ask common cold call objections. Apply a difficulty level from a scale of 1 to 10 where 1 is easy with low or no objections and 10 is where you have the most and hardest objections. Use difficulty level ${homeProvider.sliderValue.round()} in this role play.');
       }),),
       const SizedBox(
         height: 19,

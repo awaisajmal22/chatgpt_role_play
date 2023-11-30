@@ -41,6 +41,9 @@ dependencies:
   speech_to_text: ^6.4.1
   chat_gpt_flutter: ^1.0.15
   http: ^1.1.0
+  file_picker: ^6.1.1
+  syncfusion_flutter_pdfviewer: ^22.2.8
+ 
 
 dev_dependencies:
   flutter_test:

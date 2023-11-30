@@ -3,6 +3,7 @@ import 'package:chatgpt_role_play/App/Provider/role_play_convo_provider.dart';
 import 'package:chatgpt_role_play/App/Services/open_ai_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import 'component/message_tile.dart';
 
@@ -16,6 +17,12 @@ class RolePlayConversationScreen extends StatefulWidget {
 class _RolePlayConversationScreenState extends State<RolePlayConversationScreen> {
   onInit(){
 Provider.of<RolePlayConvoProvider>(context, listen: false).initSpeech();
+final provider = Provider.of<RolePlayConvoProvider>(context, listen: false);
+// if(provider.speechToText.isNotListening){
+//   provider.startListening();
+//   print('Start listing');
+// }
+
   }
 
   final OpenAIService openAIService = OpenAIService();
@@ -54,8 +61,10 @@ Provider.of<RolePlayConvoProvider>(context, listen: false).initSpeech();
                   height: 17,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
+                      
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Container(
@@ -67,33 +76,38 @@ Provider.of<RolePlayConvoProvider>(context, listen: false).initSpeech();
                             borderRadius: BorderRadius.circular(40)
                           ),
                           child: ListView.builder(
-                            itemCount: openAIService.messages.length,
+                            controller: rolePlayConvoProvider.scrollController,
+                            itemCount: rolePlayConvoProvider.messagesList!.length,
                             itemBuilder: (context, index){
-                        return MessageTile(
-                          title: openAIService.messages[index].content.toString(),
-                          isUSerSide: openAIService.messages[index].role == 'user'? true : false,
+                        return  MessageTile(
+                          title: rolePlayConvoProvider.messagesList![index].content.toString(),
+                          isUSerSide: rolePlayConvoProvider.messagesList![index].role == 'user'? true : false,
                         );
                           }),
                         ),const SizedBox(
                   height: 21,
                 ),
-                Text(
-                  // If listening is active show the recognized words
-                  rolePlayConvoProvider.speechToText.isListening
-                      ? '${rolePlayConvoProvider.lastWords}'
-                      // If listening isn't active but could be tell the user
-                      // how to start it, otherwise indicate that speech
-                      // recognition is not yet ready or not supported on
-                      // the target device
-                      : rolePlayConvoProvider.speechEnabled
-                          ? 'Tap the microphone to start listening...'
-                          : 'Speech not available',
-                ),
+              
               Padding(padding: const EdgeInsets.only(right: 46),
-              child:  appButton(horizontalPadding: 36, verticalPadding: 6, color: Theme.of(context).primaryColor, title: rolePlayConvoProvider.speechToText.isNotListening ? 'Start': 'Finish', radius: 5, context: context, titleColor: Theme.of(context).scaffoldBackgroundColor, fontSize: 12, fontWeight: FontWeight.w500, 
-              onTap: rolePlayConvoProvider.speechToText.isNotListening ? rolePlayConvoProvider.startListening : rolePlayConvoProvider.stopListening,),),
+              child:  appButton(horizontalPadding: 36, verticalPadding: 6, color: Theme.of(context).primaryColor, title:  'Finish', radius: 5, context: context, titleColor: Theme.of(context).scaffoldBackgroundColor, fontSize: 12, fontWeight: FontWeight.w500, 
+              onTap:  rolePlayConvoProvider.stopListening ,),),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                     rolePlayConvoProvider.isReady
+          ? SizedBox(
+            height: MediaQuery.of(context).size.height * 0.75,
+                          width: MediaQuery.of(context).size.height * 0.78,
+            child: SfPdfViewer.memory(rolePlayConvoProvider.pdfPath!))
+          :  Center(
+            child: GestureDetector(
+            onTap: rolePlayConvoProvider.pickPDF,
+            
+                child: Text('Please pick a PDF file to view.'),
+              ),
+          ),
                   ],
                 ),
                

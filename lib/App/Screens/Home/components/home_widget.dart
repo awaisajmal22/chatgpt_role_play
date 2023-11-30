@@ -1,8 +1,10 @@
 
 import 'package:chatgpt_role_play/App/Constant/appButton/app_button.dart';
 import 'package:chatgpt_role_play/App/Provider/home_provider.dart';
+import 'package:chatgpt_role_play/App/Provider/role_play_convo_provider.dart';
 import 'package:chatgpt_role_play/App/Screens/Home/components/role_play_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({
@@ -77,6 +79,7 @@ class HomeWidget extends StatelessWidget {
                              appButton(
                 onTap: (){
                   homeProvider.getSelectedIndex(index: 0);
+                 
                 },
                 horizontalPadding: 40, verticalPadding: 12, color: Theme.of(context).primaryColor, title: 'Continue', radius: 5, context: context, titleColor: Colors.white, fontSize: 12, fontWeight: FontWeight.w500,) 
                   ],

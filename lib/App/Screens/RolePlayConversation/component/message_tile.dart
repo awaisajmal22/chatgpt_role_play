@@ -15,9 +15,9 @@ class MessageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-     isUSerSide ? Container(
+     if (isUSerSide) Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 17),
-     
+      width: MediaQuery.of(context).size.width * 0.40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Theme.of(context).cardColor,
@@ -38,16 +38,19 @@ class MessageTile extends StatelessWidget {
         const SizedBox(
           width: 22,
         ),
-        Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: Color(0xff0F0F0F),
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-        ),)
+        SizedBox(
+           width: MediaQuery.of(context).size.width * 0.26,
+          child: Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: Color(0xff0F0F0F),
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+          ),),
+        )
       ],
     ),
-    ) : Container(
+    ) else Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 17),
-     
+     width: MediaQuery.of(context).size.width * 0.40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Color(0xffEAEAEA),
@@ -58,11 +61,14 @@ class MessageTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         
-        Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: Color(0xff0F0F0F),
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-        ),),const SizedBox(
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.26,
+          child: Text(title, style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: Color(0xff0F0F0F),
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+          ),),
+        ),const SizedBox(
           width: 22,
         ), Container(
           height: 46,
