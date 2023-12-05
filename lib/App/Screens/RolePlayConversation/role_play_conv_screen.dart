@@ -69,7 +69,7 @@ final provider = Provider.of<RolePlayConvoProvider>(context, listen: false);
                       children: [
                         Container(
                           padding: const EdgeInsets.only(left: 30, right: 17, top: 25, bottom: 25),
-                          height: MediaQuery.of(context).size.height * 0.75,
+                          height: MediaQuery.of(context).size.height * 0.60,
                           width: MediaQuery.of(context).size.height * 0.70,
                           decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor,
@@ -79,15 +79,28 @@ final provider = Provider.of<RolePlayConvoProvider>(context, listen: false);
                             controller: rolePlayConvoProvider.scrollController,
                             itemCount: rolePlayConvoProvider.messagesList!.length,
                             itemBuilder: (context, index){
-                        return  MessageTile(
+                        if(index == 0){
+                          return SizedBox.shrink();
+                        }else {
+                        return MessageTile(
                           title: rolePlayConvoProvider.messagesList![index].content.toString(),
                           isUSerSide: rolePlayConvoProvider.messagesList![index].role == 'user'? true : false,
                         );
-                          }),
+                        }
+                          })
                         ),const SizedBox(
                   height: 21,
                 ),
-              
+              Padding(padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10), child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.12,
+                width: MediaQuery.of(context).size.height * 0.70,
+                child: ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (context, index){
+                  return Text(rolePlayConvoProvider.lastWord);
+                })
+                ),
+              ),
               Padding(padding: const EdgeInsets.only(right: 46),
               child:  appButton(horizontalPadding: 36, verticalPadding: 6, color: Theme.of(context).primaryColor, title:  'Finish', radius: 5, context: context, titleColor: Theme.of(context).scaffoldBackgroundColor, fontSize: 12, fontWeight: FontWeight.w500, 
               onTap:  rolePlayConvoProvider.stopListening ,),),

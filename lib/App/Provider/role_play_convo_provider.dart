@@ -7,6 +7,7 @@ import 'dart:typed_data';
 import 'package:chatgpt_role_play/App/Models/chatgpt_prompt_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -21,9 +22,21 @@ class RolePlayConvoProvider extends ChangeNotifier{
   bool _isListening = false;
   String _lastWords = '';
   String get lastWord => _lastWords;
-  getLastWord(String value){
-_lastWords = value;
+FlutterTts flutterTts = FlutterTts();
+bool _isSpeaking = false;
+  Future speakResponse(String responseText) async {
+
+      await flutterTts.setVolume(1.0);
+      await flutterTts.setPitch(1.0);
+      await flutterTts.setLanguage("en-US");
+      await flutterTts.speak(responseText);
+      
+      notifyListeners();
+    
   }
+//   getLastWord(String value){
+// _lastWords = value;
+//   }
   Timer? _idleTimer;
 
   bool get speechEnabled => _speechEnabled;
@@ -37,12 +50,25 @@ void scrollDOwn() {
   }
   void isSpeechEnabled({required bool check}) {
     _speechEnabled = check;
+    
     notifyListeners();
   }
 
   void initSpeech() async {
     _speechEnabled = await speechToText.initialize();
-    startListening();
+   flutterTts.setStartHandler(() {
+    print('stop listing');
+    stopListening();
+   });
+   flutterTts.setCompletionHandler(() {
+    _lastWords = '';
+    print('start Listing');
+      startListening();
+    });
+       
+   
+  
+   
     notifyListeners();
   }
 
@@ -60,7 +86,7 @@ void scrollDOwn() {
   void stopListening() async {
     await speechToText.stop();
     print('stop');
-    _resetIdleTimer(); 
+    // _resetIdleTimer(); 
   }
 
   void _onSpeechResult(SpeechRecognitionResult result) {
@@ -91,10 +117,13 @@ List<PromptModel>? get messagesList => _messagesList;
   //  _messagesList!.add( PromptModel(role: 'user', content:_lastWords ));
    final chatgptData = await openAIService.chatGPTAPI(msg);
     _messagesList!.addAll(chatgptData);
+speakResponse(_messagesList!.last.content);
+
     scrollDOwn();
     print(_messagesList!.length);
     notifyListeners();
   }
+
 
   @override
   void dispose() {
