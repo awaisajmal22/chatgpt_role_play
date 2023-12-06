@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class OpenAIService  {
  
 
-  String openAiSecretKey = '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';
+  String openAiSecretKey = '';
   Future<List<PromptModel>> chatGPTAPI(String prompt) async {
     List<PromptModel> _messages = [];
     _messages.add(PromptModel(role: 'user', content: prompt));

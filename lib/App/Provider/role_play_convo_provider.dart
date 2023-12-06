@@ -2,6 +2,7 @@
 
 
 import 'dart:async';
+import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:chatgpt_role_play/App/Models/chatgpt_prompt_model.dart';
@@ -73,41 +74,53 @@ void scrollDOwn() {
   }
 
   void startListening() async {
-    try {
+  try {
+    
       await speechToText.listen(
-        onResult: _onSpeechResult,
-        // listenFor: Duration(seconds: 2), 
+        onResult: (result) {
+          if (_lastWords != result.recognizedWords) {
+            _lastWords = result.recognizedWords;
+            _resetIdleTimer(_lastWords);
+            print('Recognized Text: $_lastWords');
+            notifyListeners();
+          }
+        },
       );
-    } catch (e) {
-      print('Error starting listening: $e');
-    }
+       
+      
+    
+  } catch (e) {
+    print('Error starting listening: $e');
+  }
+  notifyListeners(); 
   }
 
   void stopListening() async {
+    // _lastWords = '';
     await speechToText.stop();
     print('stop');
     // _resetIdleTimer(); 
-  }
-
-  void _onSpeechResult(SpeechRecognitionResult result) {
-    _lastWords = result.recognizedWords;
-   
-    _resetIdleTimer(); 
     notifyListeners();
   }
 
-  void _resetIdleTimer() {
+  // void _onSpeechResult(SpeechRecognitionResult result) {
+  //   _lastWords = result.recognizedWords;
+   
+  //   _resetIdleTimer(); 
+  //   notifyListeners();
+  // }
+
+  void _resetIdleTimer(String msg) {
     _idleTimer?.cancel(); 
     _idleTimer = Timer(Duration(seconds: 5), () {
       print(_lastWords);
       if(_lastWords != ''){
-      sendMessage(_lastWords);
+      sendMessage(msg);
       }
-       stopListening();
-       _lastWords = '';
-        Future.delayed(Duration(seconds: 2), () {
-          startListening();
-        });
+      //  stopListening();
+      // initSpeech();
+          // startListening();
+        
       
     });
   }
@@ -117,7 +130,8 @@ List<PromptModel>? get messagesList => _messagesList;
   //  _messagesList!.add( PromptModel(role: 'user', content:_lastWords ));
    final chatgptData = await openAIService.chatGPTAPI(msg);
     _messagesList!.addAll(chatgptData);
-speakResponse(_messagesList!.last.content);
+    
+speakResponse(_messagesList!.last.content).whenComplete(() => initSpeech());
 
     scrollDOwn();
     print(_messagesList!.length);
